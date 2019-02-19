@@ -1,26 +1,44 @@
-#' <Add Title>
+#' Geom
 #'
-#' <Add Description>
+#' \code{g2_geom} adds geometries to chart
+#'
+#' @param x,y Column names for determining position
+#' @param type Text name of geometry desired
+#' @param color Column name/text for desired color
+#' @param adjust Text to change geometry placement.
+#' \itemize{
+#'  \item{"dodge"}
+#'  \item{"jitter"}
+#'  \item{"stack"}
+#'  \item{"symmetric"}
+#' }
+#' @param shape Column name/text to determing shape type.  Varies by geom type
+#' @param size Column name/number to change size
+#' @param opacity Column name/number between 0-1
+#' @param tootip
+#' @param label
+#' @param style
+#' @param select
+#' @param active
+#'
+#' @examples
+#' iris %>%
+#'  g2_R() %>%
+#'  g2_chart(theme = "dark") %>%
+#'  g2_coord(type = "theta") %>%
+#'  g2_geom(
+#'    x = Sepal.Width,
+#'    y = Sepal.Length,
+#'    type = "interval",
+#'    color = Species,
+#'    adjust = c("stack"),
+#'    opacity = Sepal.Length
+#'  )
 #'
 #' @import htmlwidgets
 #'
 #' @export
-g2_geom <- function(
-  g2,
-  x,
-  y,
-  type,
-  color = NULL,
-  adjust = NULL,
-  shape = NULL,
-  size = NULL,
-  opacity = NULL,
-  tooltip = NULL,
-  label = NULL,
-  style = NULL,
-  select = NULL,
-  active = NULL
-  ) {
+g2_geom <- function(g2, x, y, type, color = NULL, adjust = NULL, shape = NULL, size = NULL, opacity = NULL, tooltip = NULL, label = NULL, style = NULL, select = NULL, active = NULL, name = NULL) {
 
   # Clean up information from parameters to allow for use of symbols from the user side
   x <- deparse(substitute(x))
@@ -84,7 +102,12 @@ g2_geom <- function(
 
   # If opts list doesn't exist create it
   # Otherwise append to existing list
-  if(is.null(g2$x$options$geoms)) {
+  # TODO: Add if scenario for when name != NULL and g2$x$view[[name]]$options already exists
+  if(!is.null(name) && is.null(g2$x$view[[name]])) {
+    g2$x$view[[name]]$options <- list("geoms" = list(geom_opts))
+  } else if(!is.null(name) && !is.null(g2$x$view[[name]])) {
+    g2$x$view[[name]]$options$geoms <- append(g2$x$view[[name]]$options$geoms, list(geom_opts))
+  } else if(is.null(g2$x$options$geoms)) {
     g2$x$options$geoms <- list(geom_opts)
   } else {
     g2$x$options$geoms <- append(g2$x$options$geoms, list(geom_opts))

@@ -2,12 +2,50 @@
 % Please edit documentation in R/geom.R
 \name{g2_geom}
 \alias{g2_geom}
-\title{<Add Title>}
+\title{Geom}
 \usage{
 g2_geom(g2, x, y, type, color = NULL, adjust = NULL, shape = NULL,
   size = NULL, opacity = NULL, tooltip = NULL, label = NULL,
-  style = NULL, select = NULL, active = NULL)
+  style = NULL, select = NULL, active = NULL, name = NULL)
+}
+\arguments{
+\item{x, y}{Column names for determining position}
+
+\item{type}{Text name of geometry desired}
+
+\item{color}{Column name/text for desired color}
+
+\item{adjust}{Text to change geometry placement.
+\itemize{
+ \item{"dodge"}
+ \item{"jitter"}
+ \item{"stack"}
+ \item{"symmetric"}
+}}
+
+\item{shape}{Column name/text to determing shape type.  Varies by geom type}
+
+\item{size}{Column name/number to change size}
+
+\item{opacity}{Column name/number between 0-1}
+
+\item{active}{}
 }
 \description{
-<Add Description>
+\code{g2_geom} adds geometries to chart
+}
+\examples{
+iris \%>\%
+ g2_R() \%>\%
+ g2_chart(theme = "dark") \%>\%
+ g2_coord(type = "theta") \%>\%
+ g2_geom(
+   x = Sepal.Width,
+   y = Sepal.Length,
+   type = "interval",
+   color = Species,
+   adjust = c("stack"),
+   opacity = Sepal.Length
+ )
+
 }

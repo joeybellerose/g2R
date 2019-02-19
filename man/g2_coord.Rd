@@ -5,13 +5,38 @@
 \title{<Add Title>}
 \usage{
 g2_coord(g2, type = "rect", cfg = NULL, rotate = NULL,
-  scale = NULL, reflect = NULL, transpose = NULL)
+  scale = NULL, reflect = NULL, transpose = FALSE, name = NULL)
 }
 \arguments{
-\item{coord}{The type of coordinate system.  Options are c("rect", "polar", "theta", "helix")}
+\item{type}{The type of coordinate system.
+\itemize{
+ \item{"rect"}
+ \item{"polar"}
+ \item{"theta"}
+ \item{"helix"}
+ \item{"map"}
+ \item{"gauge"}
+ \item{"clock"}
+}}
+
+\item{transpose}{Logical to swap x and y axes}
 }
 \description{
 <Add Description>
+}
+\examples{
+iris \%>\%
+g2_R() \%>\%
+ g2_chart(theme = "dark") \%>\%
+ g2_coord(type = "polar", reflect = c("reflect", "x"), transpose = "transpose", scale = c("scale", 1, -1), rotate = c("rotate", 90)) \%>\%
+ g2_geom(
+   x = Sepal.Width,
+   y = Sepal.Length,
+   type = "interval",
+   color = Species,
+   adjust = c("stack")
+ )
+
 }
 \references{
 \url{https://www.yuque.com/antv/g2-docs/api-chart#ufv0rv}

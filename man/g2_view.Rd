@@ -4,8 +4,39 @@
 \alias{g2_view}
 \title{<Add Title>}
 \usage{
-g2_view(g2)
+g2_view(g2, name)
+}
+\arguments{
+\item{name}{Text name of the view}
 }
 \description{
 <Add Description>
+}
+\examples{
+iris \%>\%
+g2_R() \%>\%
+ g2_chart(theme = "dark") \%>\%
+ g2_view(name = "test") \%>\%
+ g2_coord(type = "polar", name = "test") \%>\%
+ g2_geom(
+   name = "test",
+   x = Sepal.Width,
+   y = Sepal.Length,
+   type = "interval",
+   color = Species,
+   adjust = c("stack"),
+   opacity = Sepal.Length
+ ) \%>\%
+ g2_view(name = "test2") \%>\%
+ g2_coord(type = "helix", name = "test2") \%>\%
+ g2_geom(
+   name = "test2",
+   x = Sepal.Width,
+   y = Sepal.Length,
+   type = "point",
+   color = Species,
+   adjust = c("jitter"),
+   opacity = Sepal.Length,
+ )
+
 }

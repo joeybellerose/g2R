@@ -4,8 +4,18 @@
 \alias{g2_scale}
 \title{<Add Title>}
 \usage{
-g2_scale(g2)
+g2_scale(g2, xtype, ytype, xopts, yopts)
+}
+\arguments{
+\item{xtype, ytype}{\itemize
+\item{"identity"}
+\item{"linear"}
+\item{"cat"}
+\item{"time"}
+\item{"timeCat"}
+\item{"log"}
+\item{"pow"}}
 }
 \description{
-<Add Description>
+<Add Title>
 }
